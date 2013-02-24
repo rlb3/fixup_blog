@@ -21,4 +21,8 @@ class PostFile
     true if @headers && @body
   end
 
+  def correct_date(new_date)
+    self.headers['date'] = new_date
+  end
+
 end
