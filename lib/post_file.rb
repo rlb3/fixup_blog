@@ -16,13 +16,26 @@ class PostFile
     body    = matcher[2]
 
     @headers = YAML.load(yaml)
-    @body    = body
+    @body    = body.gsub(/^\n|\n$/, '')
 
     true if @headers && @body
   end
 
   def correct_date(new_date)
     self.headers['date'] = new_date
+  end
+
+  def to_text
+    text = <<TEXT
+---
+layout: #{self.headers['layout']}
+title: "#{self.headers['title']}"
+date: #{self.headers['date']}
+comments: #{self.headers['comments']}
+categories: #{self.headers['categories']}
+---
+#{self.body}
+TEXT
   end
 
 end

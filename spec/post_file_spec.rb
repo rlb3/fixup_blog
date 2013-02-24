@@ -17,10 +17,19 @@ describe PostFile do
 
   describe '.correct_date' do
     let(:new_date) { '2012-12-25 00:00' }
-    it {
+    it do
       subject.parse
       subject.correct_date(new_date)
       subject.headers['date'].should == new_date
-    }
+    end
+  end
+
+  describe 'to_text' do
+    let(:text) { IO.read path }
+    it do
+      subject.parse
+      subject.to_text.should == text
+      p subject.to_text
+    end
   end
 end
