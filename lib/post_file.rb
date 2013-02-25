@@ -25,6 +25,10 @@ class PostFile
     self.headers['date'] = new_date
   end
 
+  def title
+    self.headers['title']
+  end
+
   def to_text
     text = <<TEXT
 ---
