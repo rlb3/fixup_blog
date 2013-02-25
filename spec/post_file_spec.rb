@@ -28,8 +28,7 @@ describe PostFile do
     let(:text) { IO.read path }
     it do
       subject.parse
-      subject.to_text.should == text
-      p subject.to_text
+      subject.to_text.gsub(/[\s\n]+/,'').should == text.gsub(/[\s\n]+/,'')
     end
   end
 end
