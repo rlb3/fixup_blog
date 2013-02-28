@@ -1,3 +1,4 @@
+require 'rspec'
 $:.unshift(File.dirname(__FILE__) + '/../lib')
 require File.expand_path(File.join(File.dirname(__FILE__), "spec_helper.rb"))
 require 'post_file'
@@ -20,16 +21,16 @@ describe PostFile do
 
   describe '.correct_date' do
     let(:new_date) { '2012-12-25 00:00' }
-    it do
+    it 'correcting the date changes the date' do
       subject.parse
-      subject.correct_date(new_date)
-      subject.headers['date'].should == new_date
+      subject.date = new_date
+      subject.date.should == new_date
     end
   end
 
   describe 'to_text' do
     let(:text) { IO.read path }
-    it do
+    it 'the parsed text should still be the same' do
       subject.parse
       subject.to_text.gsub(/[\s\n]+/,'').should == text.gsub(/[\s\n]+/,'')
     end
