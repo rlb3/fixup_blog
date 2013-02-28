@@ -17,29 +17,46 @@ class PostFile
 
     @headers = YAML.load(yaml)
     @body    = body.gsub(/^\n|\n$/, '')
-
-    true if @headers && @body
   end
 
-  def correct_date(new_date)
-    self.headers['date'] = new_date
+  def parsed?
+    true if self.headers && self.body
   end
 
   def title
     self.headers['title']
   end
 
+  def layout
+    self.headers['layout']
+  end
+
+  def date=(new_date)
+    self.headers['date'] = new_date
+  end
+
+  def date
+    self.headers['date']
+  end
+
+  def comments
+    self.headers['comments']
+  end
+
+  def categories
+    self.headers['categories']
+  end
+
   def to_text
     text = <<TEXT
 ---
-layout: #{self.headers['layout']}
-title: "#{self.headers['title']}"
-date: #{self.headers['date']}
-comments: #{self.headers['comments']}
-categories: #{self.headers['categories']}
+layout: #{self.layout}
+title: "#{self.title}"
+date: #{self.date}
+comments: #{self.comments}
+categories: #{self.categories}
 ---
 #{self.body}
 TEXT
   end
-
 end

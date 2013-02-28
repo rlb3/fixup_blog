@@ -12,7 +12,10 @@ describe PostFile do
   end
 
   describe '.parse' do
-    it { subject.parse.should be_true }
+    it { 
+      subject.parse
+      subject.should be_parsed
+    }
   end
 
   describe '.correct_date' do
