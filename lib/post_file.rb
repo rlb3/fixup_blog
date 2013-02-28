@@ -9,6 +9,10 @@ class PostFile
     @path = path
   end
 
+  def write
+    IO.write(path, to_text)
+  end
+
   def parse
     text    = IO.read(self.path)
     matcher = %r{---(.*?)---(.*)}m.match(text)
