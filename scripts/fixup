@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+$:.unshift(File.dirname(__FILE__) + '/../lib')
+
+require 'post_file'
+require 'entry'
+
+working_dir = "/Users/robert/Dropbox/github/fixup_blog"
+posts_dir   = "#{working_dir}/posts"
+
+posts = []
+Dir.foreach(posts_dir) do |post|
+  next if post == '.' || post == '..'
+  posts << PostFile.new("#{posts_dir}/#{post}")
+end
+
+posts.each do |post|
+  #puts post.path
+  post.parse
+
+  entry = Entry.all(:title => post.title)
+
+  if entry.count > 0
+    post.title = entry[0].title
+    post.date = entry[0].date.strftime("%Y-%m-%d %H:%M")
+    post.write
+  end
+end
+

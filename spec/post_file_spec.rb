@@ -32,7 +32,7 @@ describe PostFile do
     let(:text) { IO.read path }
     it 'the parsed text should still be the same' do
       subject.parse
-      subject.to_text.gsub(/[\s\n]+/,'').should == text.gsub(/[\s\n]+/,'')
+      subject.to_text.gsub(/\W+/, '').should == text.gsub(/\W+/, '')
     end
   end
 end
